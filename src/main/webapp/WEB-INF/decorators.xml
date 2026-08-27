@@ -1,0 +1,11 @@
+<decorators>
+    <!-- Loại trừ trang xuất ảnh khỏi bộ trang trí giao diện -->
+    <excludes>
+        <pattern>/image*</pattern>
+    </excludes>
+
+    <!-- Các decorator khác giữ nguyên -->
+    <decorator name="web" page="/decorators/web.jsp">
+        <pattern>/*</pattern>
+    </decorator>
+</decorators>
