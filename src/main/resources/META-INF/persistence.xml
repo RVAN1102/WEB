@@ -8,6 +8,7 @@
         <class>vn.iotstar.entity.Category</class>
         <class>vn.iotstar.entity.Video</class>
         <class>vn.iotstar.entity.User</class>
+        <class>vn.iotstar.entity.Product</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ShoppingDB;encrypt=false;trustServerCertificate=true" />

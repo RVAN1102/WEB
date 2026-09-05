@@ -4,6 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <title>Quản lý danh mục - JPA</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f6f9; margin: 20px; }
@@ -52,14 +53,14 @@
                         <td>
 							<c:choose>
 							    <c:when test="${empty cate.images}">
-							        <img class="img-thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='60' viewBox='0 0 80 60'><rect width='80' height='60' fill='%23e9ecef'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='11' fill='%236c757d'>No Image</text></svg>" alt="No Image" />
+							        <img class="img-thumb" src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80" alt="No Image" />
 							    </c:when>
 							    <c:when test="${cate.images.startsWith('http')}">
-							        <img class="img-thumb" src="${cate.images}" alt="${cate.categoryname}" />
+							        <img class="img-thumb" src="${cate.images}" alt="${cate.categoryname}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
 							    </c:when>
 							    <c:otherwise>
 							        <c:url value="/image?fname=${cate.images}" var="imgUrl"/>
-							        <img class="img-thumb" src="${imgUrl}" alt="${cate.categoryname}" />
+							        <img class="img-thumb" src="${imgUrl}" alt="${cate.categoryname}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
 							    </c:otherwise>
                             </c:choose>
                         </td>

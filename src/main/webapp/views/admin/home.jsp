@@ -139,15 +139,15 @@
                 </a>
             </div>
 
-            <!-- Card Quản lý Video / Sản phẩm -->
+            <!-- Card Quản lý Sản phẩm -->
             <div class="dash-card">
                 <div>
-                    <div class="icon">🎬</div>
-                    <h3>Quản lý Video / Sản phẩm</h3>
-                    <p>Quản lý danh sách video bài giảng hoặc sản phẩm liên kết với từng danh mục trong cơ sở dữ liệu.</p>
+                    <div class="icon">📦</div>
+                    <h3>Quản lý Sản phẩm</h3>
+                    <p>Thêm, sửa, xóa sản phẩm, quản lý giá bán, số lượng kho và danh mục liên kết bằng JPA.</p>
                 </div>
-                <a href="#" class="btn-action" style="background-color: #6c757d; cursor: not-allowed;" onclick="alert('Tính năng đang được phát triển!'); return false;">
-                    Đang cập nhật...
+                <a href="<c:url value='/admin/products'/>" class="btn-action btn-success">
+                    Truy cập Quản lý Sản phẩm →
                 </a>
             </div>
 
