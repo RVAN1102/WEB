@@ -37,10 +37,14 @@ public class User implements Serializable {
     public void setUserName(String userName) { this.userName = userName; }
     public String getFullName() { return fullName; }
     public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getFullname() { return fullName; }
+    public void setFullname(String fullname) { this.fullName = fullname; }
     public String getPassWord() { return password; }
     public void setPassWord(String password) { this.password = password; }
     public String getAvatar() { return avatar; }
     public void setAvatar(String avatar) { this.avatar = avatar; }
+    public String getImages() { return avatar; }
+    public void setImages(String images) { this.avatar = images; }
     public int getRoleid() { return roleid; }
     public void setRoleid(int roleid) { this.roleid = roleid; }
     public String getPhone() { return phone; }

@@ -28,12 +28,6 @@
       <version>3.0.1</version>
     </dependency>
 
-    <!-- Microsoft SQL Server JDBC Driver-->
-    <dependency>
-      <groupId>com.microsoft.sqlserver</groupId>
-      <artifactId>mssql-jdbc</artifactId>
-      <version>9.4.1.jre16</version>
-    </dependency>
     
     <dependency>
     	<groupId>commons-io</groupId>
@@ -67,6 +61,13 @@
 	    <groupId>jakarta.persistence</groupId>
 	    <artifactId>jakarta.persistence-api</artifactId>
 	    <version>3.1.0</version>
+	</dependency>
+	
+	<!-- SiteMesh 3 (Slide 5 bài giảng) -->
+	<dependency>
+	    <groupId>org.sitemesh</groupId>
+	    <artifactId>sitemesh</artifactId>
+	    <version>3.2.1</version>
 	</dependency>
   </dependencies>
 

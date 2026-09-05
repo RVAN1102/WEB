@@ -1,0 +1,11 @@
+<sitemesh>
+    <mapping path="/*" name="web" decorator="web.jsp"/>
+    <mapping path="/admin/*" name="admin" decorator="admin.jsp"/>
+
+    <!-- Loại trừ trang login, register, image, assets khỏi decorator theo Slide 6 -->
+    <mapping path="/login*" exclude="true" />
+    <mapping path="/register*" exclude="true" />
+    <mapping path="/image*" exclude="true" />
+    <mapping path="/assets*" exclude="true" />
+    <mapping path="/api*" exclude="true" />
+</sitemesh>

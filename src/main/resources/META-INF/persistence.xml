@@ -7,6 +7,7 @@
     <persistence-unit name="jpa-hibernate-mysql">
         <class>vn.iotstar.entity.Category</class>
         <class>vn.iotstar.entity.Video</class>
+        <class>vn.iotstar.entity.User</class>
         
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ShoppingDB;encrypt=false;trustServerCertificate=true" />

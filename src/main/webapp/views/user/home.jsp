@@ -73,8 +73,6 @@
 </head>
 <body>
     <div class="container">
-        <%@ include file="/common/web/topbar.jsp" %>
-        
         <h2>Chào mừng bạn đến với không gian mua sắm!</h2>
         <h3>Khám phá các danh mục nổi bật nhất hôm nay</h3>
         <hr/>

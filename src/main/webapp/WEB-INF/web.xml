@@ -4,4 +4,13 @@
 
     <display-name>Shopping_MVC</display-name>
 
+    <!-- Cấu hình Sitemesh Filter theo slide 5 bài giảng -->
+    <filter>
+        <filter-name>sitemesh</filter-name>
+        <filter-class>org.sitemesh.config.ConfigurableSiteMeshFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>sitemesh</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

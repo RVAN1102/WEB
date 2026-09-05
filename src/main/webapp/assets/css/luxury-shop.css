@@ -1,0 +1,344 @@
+/**
+ * luxury-shop.css
+ * High-End Creative Front-end Styling
+ * Aesthetic: Architectural Minimalism, High-contrast Editorial, Ethereal Atmosphere
+ * Zero-lag: GPU accelerated with translate3d & will-change
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --bg-base: #f8fafc;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --accent-indigo: #4f46e5;
+    --accent-glow: rgba(79, 70, 229, 0.12);
+    --border-subtle: rgba(226, 232, 240, 0.85);
+    --card-bg: rgba(255, 255, 255, 0.88);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-sans);
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Three.js 3D Ambient Background Layers */
+#ambient-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.75;
+}
+
+.canvas-blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    backdrop-filter: blur(85px);
+    -webkit-backdrop-filter: blur(85px);
+    background: radial-gradient(circle at 50% 25%, rgba(255, 255, 255, 0.35) 0%, rgba(248, 250, 252, 0.82) 100%);
+}
+
+/* Content Container */
+.page-wrapper {
+    position: relative;
+    z-index: 2;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 40px 28px 100px 28px;
+}
+
+/* Editorial Hero Section */
+.editorial-hero {
+    margin-bottom: 70px;
+    padding-top: 20px;
+}
+
+.editorial-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-indigo);
+    background: rgba(79, 70, 229, 0.08);
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(79, 70, 229, 0.15);
+}
+
+.editorial-hero-title {
+    font-family: var(--font-sans);
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    color: var(--text-primary);
+    margin: 0 0 20px 0;
+    max-width: 900px;
+}
+
+.editorial-hero-title .serif-accent {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent-indigo);
+}
+
+.editorial-hero-lead {
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    max-width: 680px;
+    margin: 0 0 32px 0;
+    font-weight: 400;
+}
+
+/* Stats Ribbon */
+.editorial-stats {
+    display: flex;
+    gap: 40px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.editorial-stats-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.editorial-stats-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.editorial-stats-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 2px;
+}
+
+/* Section Header */
+.section-header-editorial {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 35px;
+}
+
+.section-title-editorial {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+    color: var(--text-primary);
+}
+
+.section-count-editorial {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-family: var(--font-sans);
+}
+
+/* Bố cục Asymmetrical Modern Grid (Không rập khuôn Bootstrap) */
+.editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 32px;
+}
+
+/* Thẻ sản phẩm / danh mục */
+.editorial-card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04), 0 0 1px rgba(15, 23, 42, 0.08);
+    cursor: pointer;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    text-decoration: none;
+    color: inherit;
+    /* GPU Acceleration */
+    will-change: transform, box-shadow;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+/* Nhịp điệu Bất đối xứng (Asymmetry Rules) */
+/* Thẻ đầu tiên (Hero Showcase) chiếm 8 cột, nổi bật */
+.editorial-grid > .editorial-card:nth-child(5n + 1) {
+    grid-column: span 8;
+}
+
+.editorial-grid > .editorial-card:nth-child(5n + 1) .img-frame {
+    height: 380px;
+}
+
+/* Thẻ thứ hai chiếm 4 cột, dáng chân dung thanh mảnh */
+.editorial-grid > .editorial-card:nth-child(5n + 2) {
+    grid-column: span 4;
+}
+
+.editorial-grid > .editorial-card:nth-child(5n + 2) .img-frame {
+    height: 380px;
+}
+
+/* Các thẻ tiếp theo: 4 cột đều nhau, nhịp 3 cột thanh lịch */
+.editorial-grid > .editorial-card:nth-child(5n + 3),
+.editorial-grid > .editorial-card:nth-child(5n + 4),
+.editorial-grid > .editorial-card:nth-child(5n + 5) {
+    grid-column: span 4;
+}
+
+.editorial-grid > .editorial-card:nth-child(5n + 3) .img-frame,
+.editorial-grid > .editorial-card:nth-child(5n + 4) .img-frame,
+.editorial-grid > .editorial-card:nth-child(5n + 5) .img-frame {
+    height: 260px;
+}
+
+/* Khung ảnh với overflow: hidden chuẩn micro-interaction */
+.img-frame {
+    position: relative;
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    background-color: #f1f5f9;
+}
+
+.editorial-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* GPU Rasterization */
+    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+}
+
+/* Floating Glass Badge */
+.card-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Thông tin thẻ sản phẩm */
+.card-details {
+    padding: 18px 6px 6px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-title-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-category-name {
+    margin: 0 0 4px 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--text-primary);
+}
+
+.card-subtext {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.card-action-arrow {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(241, 245, 249, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    transition: background 0.3s ease;
+}
+
+/* Responsive Queries */
+@media (max-width: 1024px) {
+    .editorial-grid > .editorial-card:nth-child(5n + 1) {
+        grid-column: span 12;
+    }
+    .editorial-grid > .editorial-card:nth-child(5n + 2),
+    .editorial-grid > .editorial-card:nth-child(5n + 3),
+    .editorial-grid > .editorial-card:nth-child(5n + 4),
+    .editorial-grid > .editorial-card:nth-child(5n + 5) {
+        grid-column: span 6;
+    }
+    .editorial-grid > .editorial-card:nth-child(5n + 1) .img-frame {
+        height: 320px;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-wrapper {
+        padding: 24px 16px 60px 16px;
+    }
+    .editorial-grid {
+        gap: 20px;
+    }
+    .editorial-grid > .editorial-card {
+        grid-column: span 12 !important;
+    }
+    .img-frame {
+        height: 240px !important;
+    }
+    .editorial-stats {
+        flex-direction: column;
+        gap: 16px;
+    }
+}
