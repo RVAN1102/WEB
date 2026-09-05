@@ -53,15 +53,33 @@ public class CategoryController extends HttpServlet {
 
         if (url.contains("/admin/category/insert")) {
             String categoryname = req.getParameter("categoryname");
-            int status = Integer.parseInt(req.getParameter("status"));
+            String statusStr = req.getParameter("status");
+
+            if (categoryname == null || categoryname.trim().length() < 2) {
+                req.setAttribute("error", "Tên danh mục không được để trống và phải có ít nhất 2 ký tự!");
+                req.getRequestDispatcher("/views/admin/category-add.jsp").forward(req, resp);
+                return;
+            }
+
+            int status = 1;
+            try {
+                if (statusStr != null) status = Integer.parseInt(statusStr);
+            } catch (Exception e) {}
 
             Category category = new Category();
-            category.setCategoryname(categoryname);
+            category.setCategoryname(categoryname.trim());
             category.setStatus(status);
 
             Part part = req.getPart("images1");
-            if (part != null && part.getSize() > 0) {
+            if (part != null && part.getSize() > 0 && part.getSubmittedFileName() != null && !part.getSubmittedFileName().isEmpty()) {
                 String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                String lowerName = filename.toLowerCase();
+                if (!lowerName.endsWith(".jpg") && !lowerName.endsWith(".jpeg") && 
+                    !lowerName.endsWith(".png") && !lowerName.endsWith(".webp") && !lowerName.endsWith(".gif")) {
+                    req.setAttribute("error", "Định dạng file không hỗ trợ! Vui lòng chỉ tải lên file ảnh (.jpg, .jpeg, .png, .webp, .gif).");
+                    req.getRequestDispatcher("/views/admin/category-add.jsp").forward(req, resp);
+                    return;
+                }
                 String ext = filename.substring(filename.lastIndexOf(".") + 1);
                 String fname = System.currentTimeMillis() + "." + ext;
                 
@@ -70,6 +88,11 @@ public class CategoryController extends HttpServlet {
                 
                 part.write(Constant.DIR + "/category/" + fname);
                 category.setImages("category/" + fname);
+            } else {
+                String imageUrl = req.getParameter("images");
+                if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+                    category.setImages(imageUrl.trim());
+                }
             }
 
             cateService.insert(category);
@@ -77,15 +100,40 @@ public class CategoryController extends HttpServlet {
         } else if (url.contains("/admin/category/update")) {
             int categoryid = Integer.parseInt(req.getParameter("categoryid"));
             String categoryname = req.getParameter("categoryname");
-            int status = Integer.parseInt(req.getParameter("status"));
+            String statusStr = req.getParameter("status");
 
             Category category = cateService.findById(categoryid);
-            category.setCategoryname(categoryname);
+            if (category == null) {
+                resp.sendRedirect(req.getContextPath() + "/admin/categories");
+                return;
+            }
+
+            if (categoryname == null || categoryname.trim().length() < 2) {
+                req.setAttribute("error", "Tên danh mục không được để trống và phải có ít nhất 2 ký tự!");
+                req.setAttribute("cate", category);
+                req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
+                return;
+            }
+
+            int status = 1;
+            try {
+                if (statusStr != null) status = Integer.parseInt(statusStr);
+            } catch (Exception e) {}
+
+            category.setCategoryname(categoryname.trim());
             category.setStatus(status);
 
             Part part = req.getPart("images1");
-            if (part != null && part.getSize() > 0) {
+            if (part != null && part.getSize() > 0 && part.getSubmittedFileName() != null && !part.getSubmittedFileName().isEmpty()) {
                 String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+                String lowerName = filename.toLowerCase();
+                if (!lowerName.endsWith(".jpg") && !lowerName.endsWith(".jpeg") && 
+                    !lowerName.endsWith(".png") && !lowerName.endsWith(".webp") && !lowerName.endsWith(".gif")) {
+                    req.setAttribute("error", "Định dạng file không hỗ trợ! Vui lòng chỉ tải lên file ảnh (.jpg, .jpeg, .png, .webp, .gif).");
+                    req.setAttribute("cate", category);
+                    req.getRequestDispatcher("/views/admin/category-edit.jsp").forward(req, resp);
+                    return;
+                }
                 String ext = filename.substring(filename.lastIndexOf(".") + 1);
                 String fname = System.currentTimeMillis() + "." + ext;
 

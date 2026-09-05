@@ -48,6 +48,13 @@ public class VerifyOtpController extends HttpServlet {
             return;
         }
 
+        if (!otp.trim().matches("^[0-9]{6}$")) {
+            req.setAttribute("error", "Mã xác thực OTP không hợp lệ! Vui lòng nhập đúng 6 chữ số.");
+            req.setAttribute("username", username);
+            req.getRequestDispatcher("/views/verify-otp.jsp").forward(req, resp);
+            return;
+        }
+
         User user = userService.findByUsername(username.trim());
         if (user == null) {
             req.setAttribute("error", "Không tìm thấy tài khoản!");

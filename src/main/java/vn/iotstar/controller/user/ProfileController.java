@@ -125,8 +125,26 @@ public class ProfileController extends HttpServlet {
 
         String fullname = req.getParameter("fullname");
         String phone = req.getParameter("phone");
-        user.setFullname(fullname);
-        user.setPhone(phone);
+
+        // Server-side validation
+        if (fullname == null || fullname.trim().length() < 2) {
+            user.setPhone(phone);
+            req.setAttribute("error", "Họ và tên phải chứa ít nhất 2 ký tự!");
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("/views/user/profile.jsp").forward(req, resp);
+            return;
+        }
+
+        if (phone != null && !phone.trim().isEmpty() && !phone.trim().matches("^(0[35789])[0-9]{8}$")) {
+            user.setFullname(fullname);
+            req.setAttribute("error", "Số điện thoại không hợp lệ! Vui lòng nhập số điện thoại Việt Nam gồm 10 chữ số (VD: 0912345678).");
+            req.setAttribute("user", user);
+            req.getRequestDispatcher("/views/user/profile.jsp").forward(req, resp);
+            return;
+        }
+
+        user.setFullname(fullname.trim());
+        user.setPhone(phone != null ? phone.trim() : "");
 
         // Khởi tạo thư mục upload theo tài liệu của thầy[cite: 2]
         String uploadPath = Constant.UPLOAD_DIRECTORY;
@@ -141,6 +159,15 @@ public class ProfileController extends HttpServlet {
             if (part != null && part.getSize() > 0) {
                 String originalFileName = getFileName(part);
                 if (!originalFileName.isEmpty() && !originalFileName.equals(Constant.DEFAULT_FILENAME)) {
+                    String lowerName = originalFileName.toLowerCase();
+                    if (!lowerName.endsWith(".jpg") && !lowerName.endsWith(".jpeg") && 
+                        !lowerName.endsWith(".png") && !lowerName.endsWith(".webp") && !lowerName.endsWith(".gif")) {
+                        req.setAttribute("error", "Định dạng file không hỗ trợ! Vui lòng chỉ tải lên file ảnh (.jpg, .jpeg, .png, .webp, .gif).");
+                        req.setAttribute("user", user);
+                        req.getRequestDispatcher("/views/user/profile.jsp").forward(req, resp);
+                        return;
+                    }
+
                     String cleanFileName = Paths.get(originalFileName).getFileName().toString();
                     String fileName = System.currentTimeMillis() + "_" + cleanFileName;
                     part.write(uploadPath + File.separator + fileName); // Ghi file ra ổ đĩa
@@ -188,7 +215,7 @@ public class ProfileController extends HttpServlet {
 
             req.setAttribute("message", "Cập nhật thông tin cá nhân thành công!");
         } catch (Exception e) {
-            req.setAttribute("message", "Có lỗi xảy ra: " + e.getMessage());
+            req.setAttribute("error", "Có lỗi xảy ra: " + e.getMessage());
         }
 
         req.setAttribute("user", user);

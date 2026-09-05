@@ -57,11 +57,14 @@ public class LoginController extends HttpServlet {
         String remember = req.getParameter("remember");
         boolean isRememberMe = "on".equals(remember);
 
-        if (username.isEmpty() || password.isEmpty()) {
-            req.setAttribute("alert", "Tài khoản hoặc mật khẩu không được rỗng");
+        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
+            req.setAttribute("alert", "Tài khoản hoặc mật khẩu không được để trống!");
+            req.setAttribute("username", username != null ? username.trim() : "");
             req.getRequestDispatcher("/views/login.jsp").forward(req, resp);
             return;
         }
+        username = username.trim();
+        password = password.trim();
 
         // Kiểm tra xem tài khoản có trong hệ thống JPA và đã kích hoạt chưa
         vn.iotstar.service.IUserService jpaService = new vn.iotstar.service.impl.UserService();

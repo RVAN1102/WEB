@@ -96,6 +96,20 @@ public class ForgotPasswordController extends HttpServlet {
             return;
         }
 
+        if (!otp.trim().matches("^[0-9]{6}$")) {
+            req.setAttribute("error", "Mã xác thực OTP không đúng định dạng (phải gồm 6 chữ số)!");
+            req.setAttribute("username", username);
+            req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+            return;
+        }
+
+        if (newPassword.trim().length() < 6) {
+            req.setAttribute("error", "Mật khẩu mới phải có ít nhất 6 ký tự!");
+            req.setAttribute("username", username);
+            req.getRequestDispatcher("/views/reset-password.jsp").forward(req, resp);
+            return;
+        }
+
         if (!newPassword.equals(confirmPassword)) {
             req.setAttribute("error", "Xác nhận mật khẩu mới không khớp!");
             req.setAttribute("username", username);

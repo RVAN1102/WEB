@@ -13,4 +13,10 @@
         <filter-name>sitemesh</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- Cho phép servlet default của container xử lý tài nguyên tĩnh trong /assets/* -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/assets/*</url-pattern>
+    </servlet-mapping>
 </web-app>

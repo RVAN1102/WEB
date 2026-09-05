@@ -16,6 +16,13 @@ public class HomeController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String servletPath = req.getServletPath();
+        // Bỏ qua nếu là tài nguyên tĩnh (assets, css, js, png, jpg, v.v.)
+        if (servletPath != null && (servletPath.startsWith("/assets") || servletPath.contains("."))) {
+            req.getServletContext().getNamedDispatcher("default").forward(req, resp);
+            return;
+        }
+
         HttpSession session = req.getSession(false);
         User user = (session != null) ? (User) session.getAttribute("account") : null;
 

@@ -35,19 +35,43 @@ public class RegisterController extends HttpServlet {
         String fullname = req.getParameter("fullname");
         String phone = req.getParameter("phone");
 
-        if (username == null || username.trim().isEmpty() || password == null || password.trim().isEmpty()) {
-            req.setAttribute("alert", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
+        if (username == null || !username.trim().matches("^[a-zA-Z0-9_]{3,30}$")) {
+            req.setAttribute("alert", "Tên đăng nhập không hợp lệ (từ 3-30 ký tự, không chứa ký tự đặc biệt hoặc dấu cách)!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
             return;
         }
 
-        if (userService.checkExistEmail(email)) {
+        if (fullname == null || fullname.trim().length() < 2) {
+            req.setAttribute("alert", "Vui lòng nhập họ và tên hợp lệ (tối thiểu 2 ký tự)!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+
+        if (email == null || !email.trim().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            req.setAttribute("alert", "Địa chỉ email không đúng định dạng!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+
+        if (phone == null || !phone.trim().matches("^(0[3|5|7|8|9])[0-9]{8}$")) {
+            req.setAttribute("alert", "Số điện thoại không hợp lệ (phải gồm 10 số bắt đầu bằng 03, 05, 07, 08, 09)!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+
+        if (password == null || password.trim().length() < 6) {
+            req.setAttribute("alert", "Mật khẩu phải có độ dài tối thiểu 6 ký tự!");
+            req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
+            return;
+        }
+
+        if (userService.checkExistEmail(email.trim())) {
             req.setAttribute("alert", "Email đã tồn tại trong hệ thống!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
             return;
         }
 
-        if (userService.checkExistUsername(username)) {
+        if (userService.checkExistUsername(username.trim())) {
             req.setAttribute("alert", "Tên tài khoản đã tồn tại!");
             req.getRequestDispatcher("/views/register.jsp").forward(req, resp);
             return;
