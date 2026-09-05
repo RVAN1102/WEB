@@ -63,6 +63,20 @@ public class LoginController extends HttpServlet {
             return;
         }
 
+        // Kiểm tra xem tài khoản có trong hệ thống JPA và đã kích hoạt chưa
+        vn.iotstar.service.IUserService jpaService = new vn.iotstar.service.impl.UserService();
+        vn.iotstar.entity.User jpaUser = jpaService.findByUsername(username);
+
+        if (jpaUser != null && password.equals(jpaUser.getPassword()) && jpaUser.getStatus() == 0) {
+            HttpSession session = req.getSession(true);
+            session.setAttribute("verifyUsername", username);
+            session.setAttribute("verifyEmail", jpaUser.getEmail());
+            req.setAttribute("error", "Tài khoản chưa được kích hoạt! Vui lòng nhập mã OTP gửi qua email.");
+            req.setAttribute("username", username);
+            req.getRequestDispatcher("/views/verify-otp.jsp").forward(req, resp);
+            return;
+        }
+
         UserService service = new UserServiceImpl();
         User user = service.login(username, password);
 

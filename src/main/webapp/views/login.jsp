@@ -21,6 +21,9 @@
     <c:if test="${alert != null}">
         <div class="alert">${alert}</div>
     </c:if>
+    <c:if test="${message != null}">
+        <div style="color: green; margin-bottom: 10px;">${message}</div>
+    </c:if>
     <form action="${pageContext.request.contextPath}/login" method="post">
         <div class="input-group">
             <label>Tài khoản</label>
@@ -30,8 +33,13 @@
             <label>Mật khẩu</label>
             <input type="password" name="password" placeholder="Nhập mật khẩu" required>
         </div>
-        <div class="input-group">
-            <input type="checkbox" name="remember" style="width: auto;"> Nhớ tôi
+        <div class="input-group" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <input type="checkbox" name="remember" style="width: auto;"> Nhớ tôi
+            </div>
+            <div>
+                <a href="${pageContext.request.contextPath}/forgot-password" style="font-size: 13px; color: #007bff; text-decoration: none;">Quên mật khẩu?</a>
+            </div>
         </div>
         <button type="submit" class="btn">Đăng nhập</button>
     </form>
