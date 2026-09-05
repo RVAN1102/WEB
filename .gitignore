@@ -1,11 +1,17 @@
-﻿# Chặn các file cấu hình IDE của Java/Eclipse
+# ==========================================
+# IDE Configuration Files (Eclipse / STS)
+# ==========================================
 .settings/
 .classpath
 .project
 .factorypath
 
-# Chặn thư mục build sản phẩm
+# ==========================================
+# Build and Output Folders
+# ==========================================
 target/
 
-# Chặn thư mục kỹ năng ẩn của Agent
+# ==========================================
+# Local Cache & Third-party Workspace Context
+# ==========================================
 .agents/
