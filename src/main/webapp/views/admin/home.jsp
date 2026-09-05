@@ -1,166 +1,177 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Quản Trị - Admin Dashboard</title>
-    <style>
-        :root {
-            --primary-color: #007bff;
-            --primary-hover: #0056b3;
-            --success-color: #28a745;
-            --success-hover: #218838;
-            --bg-color: #f4f6f9;
-            --text-color: #2d3436;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        body {
-            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .welcome-banner {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 30px;
-        }
-
-        .welcome-banner h2 {
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .welcome-banner p {
-            margin: 0;
-            opacity: 0.9;
-            font-size: 1rem;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        .dash-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: var(--card-shadow);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .dash-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .dash-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-        }
-
-        .dash-card h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.3rem;
-            color: #1a1a1a;
-        }
-
-        .dash-card p {
-            color: #636e72;
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .btn-action {
-            display: inline-block;
-            text-align: center;
-            padding: 12px 20px;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-action:hover {
-            background-color: var(--primary-hover);
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-        }
-
-        .btn-success:hover {
-            background-color: var(--success-hover);
-        }
-    </style>
+    <title>Bảng Điều Khiển Quản Trị - Shopping MVC</title>
 </head>
 <body>
-    <div class="container">
-        <%@ include file="/common/web/topbar.jsp" %>
-
-        <div class="welcome-banner">
-            <h2> Bảng Điều Khiển Quản Trị Hệ Thống</h2>
-            <p>Chào mừng Quản trị viên! Quản lý thông tin danh mục, sản phẩm và dữ liệu hệ thống tại đây.</p>
+    <div class="py-2">
+        <!-- Welcome Header Banner -->
+        <div class="p-4 p-lg-5 mb-4 rounded-3 text-white position-relative overflow-hidden" 
+             style="background: var(--surface-dark); border: 1px solid rgba(255, 255, 255, 0.08);">
+            <div class="row align-items-center position-relative z-2">
+                <div class="col-lg-8">
+                    <span class="font-mono text-uppercase small text-muted fw-bold d-block mb-2" style="letter-spacing: 0.1em;">
+                        TRUNG TÂM VẬN HÀNH BÁN LẺ
+                    </span>
+                    <h1 class="h3 fw-bold text-white mb-2">Xin chào, ${sessionScope.account != null ? sessionScope.account.fullName : 'Quản trị viên'}</h1>
+                    <p class="text-secondary small mb-3" style="max-width: 580px;">
+                        Theo dõi tình trạng xuất nhập kho, điều chỉnh danh mục hàng hóa, kiểm soát số lượng sản phẩm tồn kho và kiểm tra chất lượng hiển thị trên cửa hàng trực tuyến.
+                    </p>
+                    <div class="d-flex gap-2 flex-wrap font-mono">
+                        <a href="<c:url value='/admin/product/add'/>" class="btn btn-light btn-sm rounded-1 px-3 py-2 fw-semibold text-dark">
+                            <i class="bi bi-plus me-1"></i>Thêm Sản Phẩm Mới
+                        </a>
+                        <a href="<c:url value='/admin/category/add'/>" class="btn btn-outline-light btn-sm rounded-1 px-3 py-2 fw-semibold">
+                            <i class="bi bi-folder-plus me-1"></i>Thêm Danh Mục
+                        </a>
+                        <a href="<c:url value='/home'/>" class="btn btn-outline-secondary btn-sm rounded-1 px-3 py-2 text-white" target="_blank">
+                            <i class="bi bi-box-arrow-up-right me-1"></i>Xem Cửa Hàng
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-end d-none d-lg-block">
+                    <div class="p-3 rounded-2 border d-inline-block text-start font-mono" style="background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.08) !important; width: 220px; font-size: 0.8125rem;">
+                        <div class="text-muted small mb-1">TRẠNG THÁI HỆ THỐNG:</div>
+                        <div class="text-success fw-bold d-flex align-items-center gap-1.5 mb-2">
+                            <span>●</span>
+                            <span>Sẵn sàng vận hành</span>
+                        </div>
+                        <div class="text-muted small mb-0.5">MÁY CHỦ CSDL:</div>
+                        <div class="text-white fw-semibold">Kết nối thông suốt</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="dashboard-grid">
-            <!-- Card Quản lý Danh mục (Chức năng JPA) -->
-            <div class="dash-card">
-                <div>
-                    <div class="icon">📂</div>
-                    <h3>Quản lý Danh mục</h3>
-                    <p>Thêm, sửa, xóa và thay đổi trạng thái ẩn/hiện của các danh mục sản phẩm trong hệ thống bằng JPA.</p>
+        <!-- 4 Operational KPI Cards -->
+        <div class="row g-3 mb-4">
+            <!-- Metric 1: Products -->
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="admin-kpi-card h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="font-mono text-muted small text-uppercase" style="letter-spacing: 0.06em;">KHO HÀNG</span>
+                            <i class="bi bi-box-seam text-primary fs-5"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-1">Danh Sách Mặt Hàng</h4>
+                        <p class="text-muted small mb-0">Quản lý giá niêm yết, số lượng tồn kho và thông số kỹ thuật.</p>
+                    </div>
+                    <div class="mt-3 pt-3 border-top font-mono">
+                        <a href="<c:url value='/admin/products'/>" class="text-decoration-none text-dark small fw-semibold d-flex align-items-center justify-content-between">
+                            <span>Mở danh sách sản phẩm</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
                 </div>
-                <a href="<c:url value='/admin/categories'/>" class="btn-action btn-success">
-                    Truy cập Quản lý Danh mục →
-                </a>
             </div>
 
-            <!-- Card Quản lý Sản phẩm -->
-            <div class="dash-card">
-                <div>
-                    <div class="icon">📦</div>
-                    <h3>Quản lý Sản phẩm</h3>
-                    <p>Thêm, sửa, xóa sản phẩm, quản lý giá bán, số lượng kho và danh mục liên kết bằng JPA.</p>
+            <!-- Metric 2: Categories -->
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="admin-kpi-card h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="font-mono text-muted small text-uppercase" style="letter-spacing: 0.06em;">PHÂN LOẠI</span>
+                            <i class="bi bi-folder text-success fs-5"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-1">Danh Mục Sản Phẩm</h4>
+                        <p class="text-muted small mb-0">Cơ cấu nhóm mặt hàng: Điện thoại, Laptop, Tablet, Phụ kiện.</p>
+                    </div>
+                    <div class="mt-3 pt-3 border-top font-mono">
+                        <a href="<c:url value='/admin/categories'/>" class="text-decoration-none text-dark small fw-semibold d-flex align-items-center justify-content-between">
+                            <span>Quản lý danh mục</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
                 </div>
-                <a href="<c:url value='/admin/products'/>" class="btn-action btn-success">
-                    Truy cập Quản lý Sản phẩm →
-                </a>
             </div>
 
-            <!-- Card Thống kê Hệ thống -->
-            <div class="dash-card">
-                <div>
-                    <div class="icon">📊</div>
-                    <h3>Thống kê & Báo cáo</h3>
-                    <p>Xem tổng quan về số lượng danh mục, tổng sản phẩm và hoạt động tương tác trong hệ thống.</p>
+            <!-- Metric 3: Security & Access -->
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="admin-kpi-card h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="font-mono text-muted small text-uppercase" style="letter-spacing: 0.06em;">BẢO MẬT</span>
+                            <i class="bi bi-shield-check text-dark fs-5"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-1">Xác Thực Quản Trị</h4>
+                        <p class="text-muted small mb-0">Kiểm soát phân quyền, cập nhật hồ sơ cá nhân và bảo mật tài khoản.</p>
+                    </div>
+                    <div class="mt-3 pt-3 border-top font-mono">
+                        <a href="<c:url value='/myprofile'/>" class="text-decoration-none text-dark small fw-semibold d-flex align-items-center justify-content-between">
+                            <span>Xem hồ sơ quản trị</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
                 </div>
-                <a href="#" class="btn-action" style="background-color: #6c757d; cursor: not-allowed;" onclick="alert('Tính năng đang được phát triển!'); return false;">
-                    Đang cập nhật...
-                </a>
+            </div>
+
+            <!-- Metric 4: Storefront -->
+            <div class="col-12 col-sm-6 col-xl-3">
+                <div class="admin-kpi-card h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <span class="font-mono text-muted small text-uppercase" style="letter-spacing: 0.06em;">BÁN LẺ</span>
+                            <i class="bi bi-shop text-dark fs-5"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark mb-1">Giao Diện Khách Hàng</h4>
+                        <p class="text-muted small mb-0">Kiểm tra trải nghiệm người dùng, giỏ hàng và danh mục trực quan.</p>
+                    </div>
+                    <div class="mt-3 pt-3 border-top font-mono">
+                        <a href="<c:url value='/home'/>" class="text-decoration-none text-dark small fw-semibold d-flex align-items-center justify-content-between" target="_blank">
+                            <span>Xem storefront</span>
+                            <span>&rarr;</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Shortcut Actions Section -->
+        <div class="admin-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-bold text-dark mb-0 font-mono text-uppercase" style="letter-spacing: 0.06em;">
+                    THAO TÁC QUẢN LÝ NHANH
+                </h6>
+            </div>
+            <div class="row g-3">
+                <div class="col-12 col-md-4">
+                    <a href="<c:url value='/admin/product/add'/>" class="card border p-3 text-decoration-none h-100 rounded-2 bg-light text-dark">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-box-seam fs-4 text-primary"></i>
+                            <div>
+                                <div class="fw-bold small mb-0">Đăng Sản Phẩm Mới</div>
+                                <span class="text-muted small">Cập nhật thông số kỹ thuật, giá bán và ảnh</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <a href="<c:url value='/admin/category/add'/>" class="card border p-3 text-decoration-none h-100 rounded-2 bg-light text-dark">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-folder-plus fs-4 text-success"></i>
+                            <div>
+                                <div class="fw-bold small mb-0">Tạo Phân Loại Mới</div>
+                                <span class="text-muted small">Thêm danh mục hàng hóa mới cho cửa hàng</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <a href="<c:url value='/home'/>" class="card border p-3 text-decoration-none h-100 rounded-2 bg-light text-dark" target="_blank">
+                        <div class="d-flex align-items-center gap-3">
+                            <i class="bi bi-globe fs-4 text-dark"></i>
+                            <div>
+                                <div class="fw-bold small mb-0">Kiểm Tra Cửa Hàng</div>
+                                <span class="text-muted small">Xem trang khách hàng trong tab mới</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

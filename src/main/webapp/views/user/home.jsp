@@ -7,345 +7,245 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Trang Chủ Mua Sắm - Shopping MVC</title>
-    <style>
-        :root {
-            --primary: #0d6efd;
-            --primary-hover: #0b5ed7;
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-dark: #212529;
-            --text-muted: #6c757d;
-            --accent-price: #e63946;
-            --radius-md: 12px;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
-            --shadow-hover: 0 10px 24px rgba(0,0,0,0.12);
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-dark);
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px 20px 60px 20px;
-        }
-
-        .hero-banner {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #fff;
-            padding: 40px 30px;
-            border-radius: var(--radius-md);
-            margin-bottom: 35px;
-            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .hero-text h1 {
-            margin: 0 0 10px 0;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-        .hero-text p {
-            margin: 0;
-            font-size: 1.05rem;
-            opacity: 0.9;
-        }
-
-        .btn-banner {
-            background-color: #ffc107;
-            color: #212529;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            transition: transform 0.2s, background-color 0.2s;
-            display: inline-block;
-        }
-
-        .btn-banner:hover {
-            background-color: #e0a800;
-            transform: translateY(-2px);
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: #1a1a1a;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .see-all-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .see-all-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Danh mục */
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-            gap: 20px;
-            margin-bottom: 45px;
-        }
-
-        .category-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-md);
-            padding: 18px 15px;
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-
-        .category-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .category-card img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            background-color: #f1f3f5;
-        }
-
-        .category-card h4 {
-            margin: 0;
-            font-size: 1rem;
-            font-weight: 600;
-        }
-
-        /* Sản phẩm Grid */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-            gap: 22px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-            border: 1px solid #f0f0f0;
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-            border-color: #dee2e6;
-        }
-
-        .product-img-wrapper {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            background-color: #f8f9fa;
-            position: relative;
-        }
-
-        .product-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-            display: block;
-            color: transparent;
-        }
-
-        .product-card:hover .product-img-wrapper img {
-            transform: scale(1.06);
-        }
-
-        .badge-new {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #e63946;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .product-info {
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-cat {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .product-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-            line-height: 1.35;
-            height: 2.7em;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .product-price {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--accent-price);
-            margin-top: auto;
-            margin-bottom: 8px;
-        }
-
-        .btn-view-detail {
-            background-color: #e7f1ff;
-            color: var(--primary);
-            padding: 8px 0;
-            border-radius: 6px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: background-color 0.2s;
-        }
-
-        .product-card:hover .btn-view-detail {
-            background-color: var(--primary);
-            color: white;
-        }
-    </style>
+    <title>Thiết Bị Công Nghệ Chính Hãng - Shopping MVC</title>
 </head>
 <body>
-    <div class="container">
-        <!-- Hero Banner -->
-        <div class="hero-banner">
-            <div class="hero-text">
-                <h1>Chào Mừng Đến Với Shopping MVC!</h1>
-                <p>Khám phá công nghệ hiện đại, chất lượng đỉnh cao và ưu đãi hấp dẫn mỗi ngày.</p>
-            </div>
-            <div>
-                <a href="<c:url value='/product'/>" class="btn-banner">Khám Phá Toàn Bộ Sản Phẩm →</a>
-            </div>
-        </div>
-
-        <!-- 1. Danh Mục Nổi Bật -->
-        <div class="section-header">
-            <h2 class="section-title">📂 Danh Mục Nổi Bật</h2>
-        </div>
-
-        <div class="category-grid">
-            <c:forEach items="${cateList}" var="cate">
-                <c:if test="${cate.status == 1}">
-                    <a href="<c:url value='/product?cid=${cate.categoryid}'/>" class="category-card">
-                        <c:choose>
-                            <c:when test="${empty cate.images}">
-                                <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='110' viewBox='0 0 170 110'><rect width='170' height='110' fill='%23e9ecef'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='12' fill='%236c757d'>No Image</text></svg>" alt="${cate.categoryname}" />
-                            </c:when>
-                            <c:when test="${cate.images.startsWith('http')}">
-                                <img src="${cate.images}" alt="${cate.categoryname}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
-                            </c:when>
-                            <c:otherwise>
-                                <c:url value="/image?fname=${cate.images}" var="imgUrl"/>
-                                <img src="${imgUrl}" alt="${cate.categoryname}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
-                            </c:otherwise>
-                        </c:choose>
-                        <h4>${cate.categoryname}</h4>
-                    </a>
-                </c:if>
-            </c:forEach>
-        </div>
-
-        <!-- 2. 10 Sản Phẩm Mới Nhất -->
-        <div class="section-header">
-            <h2 class="section-title">🔥 10 Sản Phẩm Mới Nhất</h2>
-            <a href="<c:url value='/product'/>" class="see-all-link">Xem tất cả sản phẩm &raquo;</a>
-        </div>
-
-        <c:choose>
-            <c:when test="${empty top10Products}">
-                <div style="background: #fff; padding: 40px; text-align: center; border-radius: 12px; color: #6c757d;">
-                    <p style="font-size: 1.1rem; margin: 0;">Hiện tại chưa có sản phẩm nào được đăng tải.</p>
-                </div>
-            </c:when>
-            <c:otherwise>
-                <div class="product-grid">
-                    <c:forEach items="${top10Products}" var="p">
-                        <a href="<c:url value='/product/detail?id=${p.productId}'/>" class="product-card">
-                            <div class="product-img-wrapper">
-                                <span class="badge-new">Mới</span>
-                                <c:choose>
-                                    <c:when test="${empty p.images}">
-                                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="${p.productName}">
-                                    </c:when>
-                                    <c:when test="${p.images.startsWith('http')}">
-                                        <img src="${p.images}" alt="${p.productName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80';">
-                                    </c:when>
-                                    <c:otherwise>
-                                        <c:url value="/image?fname=${p.images}" var="pImgUrl"/>
-                                        <img src="${pImgUrl}" alt="${p.productName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80';">
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                            <div class="product-info">
-                                <span class="product-cat">${p.category != null ? p.category.categoryname : 'Sản phẩm'}</span>
-                                <div class="product-title" title="${p.productName}">${p.productName}</div>
-                                <div class="product-price">
-                                    <fmt:formatNumber value="${p.price}" pattern="#,##0" /> đ
-                                </div>
-                                <div class="btn-view-detail">Xem chi tiết</div>
-                            </div>
+    <div class="container py-4">
+        <!-- 1. Editorial Hero Section -->
+        <section class="editorial-hero mb-4">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-7 col-xl-7">
+                    <div class="editorial-hero-eyebrow">
+                        <span>BỘ SƯU TẬP THIẾT BỊ 2026</span>
+                    </div>
+                    <h1 class="editorial-hero-heading">
+                        Thiết Kế Chuẩn Mực.<br>
+                        Hiệu Năng Đỉnh Cao.
+                    </h1>
+                    <p class="editorial-hero-desc">
+                        Tuyển chọn các dòng điện thoại thông minh, máy tính xách tay và thiết bị âm thanh hàng đầu với chế độ bảo hành chính hãng 12 tháng và hỗ trợ kỹ thuật tận tâm.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="<c:url value='/product'/>" class="btn-editorial-primary">
+                            <span>Khám Phá Kho Hàng</span>
+                            <i class="bi bi-arrow-right"></i>
                         </a>
-                    </c:forEach>
+                        <a href="#featuredCategories" class="btn-editorial-outline">
+                            <span>Xem Danh Mục</span>
+                        </a>
+                    </div>
                 </div>
-            </c:otherwise>
-        </c:choose>
+                <div class="col-lg-5 col-xl-5 d-none d-lg-block">
+                    <div class="hero-product-stage">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="hero-spec-tag">SẢN PHẨM TIÊU BIỂU</span>
+                            <span class="badge bg-white text-dark font-mono rounded-1 small" style="font-size: 0.6875rem;">MỚI RA MẮT</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&q=80" alt="Smartphone Flagship" />
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <div>
+                                <h6 class="text-white fw-bold mb-0">Smartphone Flagship Series</h6>
+                                <span class="small text-muted font-mono">Màn hình OLED 120Hz &bull; Khung hợp kim</span>
+                            </div>
+                            <a href="<c:url value='/product'/>" class="text-white text-decoration-none small fw-semibold font-mono">
+                                Chi tiết &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Architectural Assurance Strip (Non-AI, Minimalist) -->
+        <section class="mb-5">
+            <div class="assurance-strip">
+                <div class="assurance-item">
+                    <i class="bi bi-patch-check assurance-item-icon"></i>
+                    <div>
+                        <div class="assurance-item-title">100% Chính Hãng</div>
+                        <div class="assurance-item-subtitle">Phân phối ủy quyền, hóa đơn VAT đầy đủ</div>
+                    </div>
+                </div>
+                <div class="assurance-item">
+                    <i class="bi bi-box-seam assurance-item-icon"></i>
+                    <div>
+                        <div class="assurance-item-title">Giao Nhanh Toàn Quốc</div>
+                        <div class="assurance-item-subtitle">Miễn phí vận chuyển cho đơn từ 500.000₫</div>
+                    </div>
+                </div>
+                <div class="assurance-item">
+                    <i class="bi bi-arrow-repeat assurance-item-icon"></i>
+                    <div>
+                        <div class="assurance-item-title">Đổi Mới 30 Ngày</div>
+                        <div class="assurance-item-subtitle">Áp dụng cho lỗi kỹ thuật từ nhà sản xuất</div>
+                    </div>
+                </div>
+                <div class="assurance-item">
+                    <i class="bi bi-shield-check assurance-item-icon"></i>
+                    <div>
+                        <div class="assurance-item-title">Bảo Hành 12 Tháng</div>
+                        <div class="assurance-item-subtitle">Tiếp nhận tại trung tâm bảo hành toàn quốc</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Category Matrix Section -->
+        <section id="featuredCategories" class="mb-5">
+            <div class="d-flex justify-content-between align-items-end mb-3 border-bottom pb-2">
+                <div>
+                    <span class="font-mono text-uppercase small text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.08em;">PHÂN LOẠI MẶT HÀNG</span>
+                    <h2 class="h5 fw-bold mb-0 text-dark mt-0.5">Danh Mục Sản Phẩm</h2>
+                </div>
+                <a href="<c:url value='/product'/>" class="text-decoration-none fw-semibold text-dark small font-mono">
+                    Tất cả danh mục &rarr;
+                </a>
+            </div>
+
+            <div class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-6">
+                <c:forEach items="${cateList}" var="cate">
+                    <c:if test="${cate.status == 1}">
+                        <div class="col">
+                            <a href="<c:url value='/product?cid=${cate.categoryid}'/>" class="category-spec-card">
+                                <div class="category-stage-box">
+                                    <c:choose>
+                                        <c:when test="${empty cate.images}">
+                                            <i class="bi bi-device-ssd fs-3 text-secondary"></i>
+                                        </c:when>
+                                        <c:when test="${cate.images.startsWith('http')}">
+                                            <img src="${cate.images}" alt="${cate.categoryname}" 
+                                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:url value="/image?fname=${cate.images}" var="imgUrl"/>
+                                            <img src="${imgUrl}" alt="${cate.categoryname}" 
+                                                 onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80';" />
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                                <div class="category-spec-name">${cate.categoryname}</div>
+                                <span class="category-spec-count">Xem mặt hàng &rarr;</span>
+                            </a>
+                        </div>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </section>
+
+        <!-- 4. Top 10 Latest Products Matrix -->
+        <section class="mb-5">
+            <div class="d-flex justify-content-between align-items-end mb-3 border-bottom pb-2">
+                <div>
+                    <span class="font-mono text-uppercase small text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 0.08em;">ĐỢT HÀNG MỚI VỀ</span>
+                    <h2 class="h5 fw-bold mb-0 text-dark mt-0.5">10 Sản Phẩm Mới Nhất</h2>
+                </div>
+                <a href="<c:url value='/product'/>" class="text-decoration-none fw-semibold text-dark small font-mono">
+                    Toàn bộ kho hàng &rarr;
+                </a>
+            </div>
+
+            <c:choose>
+                <c:when test="${empty top10Products}">
+                    <div class="bg-white rounded-2 p-5 text-center border text-muted">
+                        <i class="bi bi-box2 fs-2 text-secondary mb-2 d-block"></i>
+                        <h6 class="fw-bold">Kho hàng hiện đang cập nhật</h6>
+                        <p class="small mb-0">Các mặt hàng mới sẽ được cập nhật sớm nhất.</p>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row g-3 row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                        <c:forEach items="${top10Products}" var="p">
+                            <div class="col">
+                                <div class="product-matrix-card">
+                                    <!-- Image Stage -->
+                                    <a href="<c:url value='/product/detail?id=${p.productId}'/>" class="product-matrix-media d-block">
+                                        <c:choose>
+                                            <c:when test="${empty p.images}">
+                                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="${p.productName}">
+                                            </c:when>
+                                            <c:when test="${p.images.startsWith('http')}">
+                                                <img src="${p.images}" alt="${p.productName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80';">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:url value="/image?fname=${p.images}" var="pImgUrl"/>
+                                                <img src="${pImgUrl}" alt="${p.productName}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80';">
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
+
+                                    <!-- Content Body -->
+                                    <div class="product-matrix-content">
+                                        <div class="product-meta-header">
+                                            <span class="product-category-meta">
+                                                ${p.category != null ? p.category.categoryname : 'Thiết bị'}
+                                            </span>
+                                            <span class="product-stock-indicator ${p.quantity > 0 ? 'in-stock' : 'out-of-stock'}">
+                                                <span>${p.quantity > 0 ? '● Còn hàng' : '○ Tạm hết'}</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="<c:url value='/product/detail?id=${p.productId}'/>" class="text-decoration-none">
+                                            <h3 class="product-matrix-title" title="${p.productName}">
+                                                ${p.productName}
+                                            </h3>
+                                        </a>
+
+                                        <!-- Price Row -->
+                                        <div class="product-matrix-price-row">
+                                            <div class="product-price-val">
+                                                <fmt:formatNumber value="${p.price}" pattern="#,##0" /> ₫
+                                            </div>
+                                            <c:if test="${p.quantity > 0}">
+                                                <span class="font-mono text-muted small" style="font-size: 0.6875rem;">Kho: ${p.quantity}</span>
+                                            </c:if>
+                                        </div>
+
+                                        <!-- Actions -->
+                                        <div class="product-action-row">
+                                            <a href="<c:url value='/product/detail?id=${p.productId}'/>" class="btn-card-inspect">
+                                                Chi tiết
+                                            </a>
+                                            <button type="button" class="btn-card-cart" 
+                                                    onclick="window.showToast('Đã thêm sản phẩm vào giỏ hàng');" 
+                                                    title="Thêm vào giỏ">
+                                                <i class="bi bi-cart-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </c:otherwise>
+            </c:choose>
+        </section>
+
+        <!-- 5. Editorial Membership Banner -->
+        <section class="p-4 p-md-5 rounded-3 text-white position-relative overflow-hidden mb-3" style="background: var(--surface-dark); border: 1px solid rgba(255,255,255,0.08);">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="font-mono text-uppercase small text-muted fw-bold d-block mb-1" style="letter-spacing: 0.1em;">DỊCH VỤ KHÁCH HÀNG</span>
+                    <h3 class="fw-bold mb-2 text-white">Đăng Ký Tài Khoản Thành Viên</h3>
+                    <p class="text-muted small mb-0" style="max-width: 540px;">
+                        Quản lý lịch sử đơn hàng, cập nhật tình trạng giao nhận theo thời gian thực và hưởng quyền lợi bảo hành điện tử nhanh chóng.
+                    </p>
+                </div>
+                <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+                    <c:choose>
+                        <c:when test="${sessionScope.account == null}">
+                            <a href="<c:url value='/register'/>" class="btn btn-light rounded-2 px-4 py-2 fw-bold text-dark">
+                                Đăng Ký Tài Khoản &rarr;
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="<c:url value='/product'/>" class="btn btn-light rounded-2 px-4 py-2 fw-bold text-dark">
+                                Tiếp Tục Mua Sắm &rarr;
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>

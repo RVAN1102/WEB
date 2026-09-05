@@ -1,0 +1,753 @@
+/* ==========================================================================
+   Shopping MVC - Technical Editorial Commerce Design System
+   Architecture: High-contrast, product-first, zero-clutter commercial UI
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+    /* Brand Foundation */
+    --brand-primary: #1d4ed8;
+    --brand-primary-hover: #1e40af;
+    --brand-primary-subtle: #eff6ff;
+    --brand-primary-border: #bfdbfe;
+
+    /* Architectural Surfaces */
+    --surface-dark: #090d14;
+    --surface-dark-elevated: #111726;
+    --surface-ground: #f8fafc;
+    --surface-card: #ffffff;
+    --surface-subtle: #f1f5f9;
+    --surface-border: #e2e8f0;
+    --surface-border-strong: #cbd5e1;
+
+    /* Typography Tiers */
+    --text-primary: #090d15;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --text-subtle: #94a3b8;
+    --text-inverse: #ffffff;
+
+    /* Functional Accents */
+    --accent-signal-orange: #ea580c;
+    --accent-signal-green: #16a34a;
+    --accent-signal-red: #dc2626;
+
+    /* Type Families */
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    /* Elevations - Architectural hairline + subtle shadow */
+    --shadow-micro: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+    --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.06), 0 1px 2px -1px rgba(0, 0, 0, 0.06);
+    --shadow-elevated: 0 4px 12px -2px rgba(0, 0, 0, 0.08);
+
+    /* Radii - Subtle & Precise */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-pill: 9999px;
+
+    /* Transitions */
+    --transition-fast: 140ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-base: 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Document Styling */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--surface-ground);
+    color: var(--text-primary);
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Monospace Utilities */
+.font-mono {
+    font-family: var(--font-mono) !important;
+}
+
+.tracking-wide-caps {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Header & Navigation
+   -------------------------------------------------------------------------- */
+.top-utility-bar {
+    background: var(--surface-dark);
+    color: #94a3b8;
+    font-size: 0.8125rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.top-utility-bar a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.top-utility-bar a:hover {
+    color: #ffffff;
+}
+
+.main-site-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--surface-border);
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    transition: border-color var(--transition-fast);
+}
+
+.site-brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 800;
+    font-size: 1.35rem;
+    letter-spacing: -0.04em;
+    color: var(--surface-dark);
+    text-decoration: none;
+}
+
+.site-brand-logo:hover {
+    color: var(--surface-dark);
+}
+
+.brand-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--brand-primary);
+    display: inline-block;
+}
+
+/* Search Bar */
+.header-search-form {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+}
+
+.header-search-input {
+    border-radius: var(--radius-pill);
+    padding: 0.55rem 3rem 0.55rem 1.15rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--surface-border);
+    background-color: var(--surface-ground);
+    transition: all var(--transition-fast);
+    width: 100%;
+}
+
+.header-search-input:focus {
+    background-color: #ffffff;
+    border-color: var(--brand-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+
+.header-search-submit {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--surface-dark);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    transition: background-color var(--transition-fast);
+}
+
+.header-search-submit:hover {
+    background: var(--brand-primary);
+}
+
+/* Navigation Links */
+.sub-nav-bar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--surface-border);
+}
+
+.sub-nav-bar .nav-link {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.65rem 0.95rem;
+    border-radius: var(--radius-xs);
+    transition: color var(--transition-fast);
+}
+
+.sub-nav-bar .nav-link:hover,
+.sub-nav-bar .nav-link.active {
+    color: var(--brand-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Editorial Hero Section (Non-AI, Structured, Architectural)
+   -------------------------------------------------------------------------- */
+.editorial-hero {
+    background: var(--surface-dark);
+    color: #ffffff;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 3.5rem 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.editorial-hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.editorial-hero-eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-signal-orange);
+}
+
+.editorial-hero-heading {
+    font-size: clamp(2rem, 3.8vw, 3.25rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.04em;
+    color: #ffffff;
+    margin-bottom: 1.25rem;
+}
+
+.editorial-hero-desc {
+    font-size: 1.0625rem;
+    color: #94a3b8;
+    max-width: 520px;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.btn-editorial-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.65rem;
+    border-radius: var(--radius-md);
+    background-color: #ffffff;
+    color: var(--surface-dark);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    border: 1px solid #ffffff;
+    transition: all var(--transition-fast);
+}
+
+.btn-editorial-primary:hover {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #ffffff;
+}
+
+.btn-editorial-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: #cbd5e1;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-fast);
+}
+
+.btn-editorial-outline:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+/* Product Showcase Frame inside Hero */
+.hero-product-stage {
+    background: #0d131f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-md);
+    padding: 1.75rem;
+    text-align: left;
+}
+
+.hero-product-stage img {
+    max-height: 220px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1.25rem;
+}
+
+.hero-spec-tag {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: #94a3b8;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Assurance Strip (Replaces generic 4-card icon feature grid)
+   -------------------------------------------------------------------------- */
+.assurance-strip {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 991px) {
+    .assurance-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .assurance-strip {
+        grid-template-columns: 1fr;
+    }
+}
+
+.assurance-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.assurance-item-icon {
+    font-size: 1.15rem;
+    color: var(--surface-dark);
+    flex-shrink: 0;
+}
+
+.assurance-item-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.1rem;
+}
+
+.assurance-item-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Category Architectural Cards
+   -------------------------------------------------------------------------- */
+.category-spec-card {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1rem;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all var(--transition-fast);
+    height: 100%;
+}
+
+.category-spec-card:hover {
+    border-color: var(--surface-dark);
+    color: inherit;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-subtle);
+}
+
+.category-stage-box {
+    width: 68px;
+    height: 68px;
+    border-radius: var(--radius-sm);
+    background: var(--surface-ground);
+    border: 1px solid var(--surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+}
+
+.category-stage-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.category-spec-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.category-spec-count {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Commercial Product Card Matrix
+   -------------------------------------------------------------------------- */
+.product-matrix-card {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.product-matrix-card:hover {
+    border-color: var(--surface-dark);
+    box-shadow: var(--shadow-elevated);
+}
+
+.product-matrix-media {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: #fafbfc;
+    border-bottom: 1px solid var(--surface-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.25rem;
+    overflow: hidden;
+}
+
+.product-matrix-media img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: transform var(--transition-base);
+}
+
+.product-matrix-card:hover .product-matrix-media img {
+    transform: scale(1.04);
+}
+
+.product-matrix-content {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-meta-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+
+.product-category-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.product-stock-indicator {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.product-stock-indicator.in-stock {
+    color: var(--accent-signal-green);
+}
+
+.product-stock-indicator.out-of-stock {
+    color: var(--text-subtle);
+}
+
+.product-matrix-title {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.5rem;
+}
+
+.product-matrix-price-row {
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.product-price-val {
+    font-family: var(--font-mono);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.product-action-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-card-inspect {
+    flex: 1;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-ground);
+    color: var(--text-primary);
+    border: 1px solid var(--surface-border);
+    text-decoration: none;
+    text-align: center;
+    transition: all var(--transition-fast);
+}
+
+.btn-card-inspect:hover {
+    background-color: var(--surface-dark);
+    border-color: var(--surface-dark);
+    color: #ffffff;
+}
+
+.btn-card-cart {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background-color: #ffffff;
+    border: 1px solid var(--surface-border);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.875rem;
+    transition: all var(--transition-fast);
+}
+
+.btn-card-cart:hover {
+    background-color: var(--brand-primary);
+    border-color: var(--brand-primary);
+    color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   Product Detail View
+   -------------------------------------------------------------------------- */
+.product-detail-stage {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+}
+
+.product-detail-stage img {
+    max-height: 380px;
+    width: auto;
+    object-fit: contain;
+}
+
+.product-spec-table {
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+.product-spec-table th {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    font-weight: 500;
+    width: 35%;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.product-spec-table td {
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+/* --------------------------------------------------------------------------
+   Admin Executive Portal Tokens
+   -------------------------------------------------------------------------- */
+.admin-sidebar {
+    width: 260px;
+    background-color: var(--surface-dark);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.admin-sidebar .nav-link {
+    color: #94a3b8;
+    font-weight: 500;
+    font-size: 0.875rem;
+    padding: 0.65rem 0.95rem;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-sidebar .nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.admin-sidebar .nav-link.active {
+    color: #ffffff;
+    background-color: var(--brand-primary);
+    font-weight: 600;
+}
+
+.admin-card {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-micro);
+}
+
+.admin-kpi-card {
+    background: #ffffff;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    transition: border-color var(--transition-fast);
+}
+
+.admin-kpi-card:hover {
+    border-color: var(--surface-border-strong);
+}
+
+.admin-kpi-number {
+    font-family: var(--font-mono);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   Clean Toast Notifications
+   -------------------------------------------------------------------------- */
+.ecommerce-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--surface-dark);
+    color: #ffffff;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.875rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-elevated);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all var(--transition-base);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.ecommerce-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility & Mobile Viewport Restraint
+   -------------------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+    .editorial-hero {
+        padding: 2rem 1.25rem;
+    }
+    .editorial-hero-heading {
+        font-size: 1.75rem;
+    }
+    .product-detail-stage {
+        min-height: 280px;
+        padding: 1.25rem;
+    }
+    .product-matrix-media {
+        height: 180px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
