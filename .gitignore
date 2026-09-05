@@ -15,3 +15,4 @@ target/
 # Local Cache & Third-party Workspace Context
 # ==========================================
 .agents/
+.md/
