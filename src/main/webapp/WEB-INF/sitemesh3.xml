@@ -2,9 +2,13 @@
     <mapping path="/*" name="web" decorator="web.jsp"/>
     <mapping path="/admin/*" name="admin" decorator="admin.jsp"/>
 
-    <!-- Loại trừ trang login, register, image, assets khỏi decorator theo Slide 6 -->
+    <!-- Loại trừ các trang xác thực và tài nguyên tĩnh khỏi decorator -->
     <mapping path="/login*" exclude="true" />
     <mapping path="/register*" exclude="true" />
+    <mapping path="/verify-otp*" exclude="true" />
+    <mapping path="/resend-otp*" exclude="true" />
+    <mapping path="/forgot-password*" exclude="true" />
+    <mapping path="/reset-password*" exclude="true" />
     <mapping path="/image*" exclude="true" />
     <mapping path="/assets*" exclude="true" />
     <mapping path="/api*" exclude="true" />

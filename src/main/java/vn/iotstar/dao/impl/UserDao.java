@@ -50,4 +50,47 @@ public class UserDao implements IUserDao {
             enma.close();
         }
     }
+
+    @Override
+    public void insert(User user) {
+        EntityManager enma = JpaConfig.getEntityManager();
+        EntityTransaction trans = enma.getTransaction();
+        try {
+            trans.begin();
+            enma.persist(user);
+            trans.commit();
+        } catch (Exception e) {
+            trans.rollback();
+            throw e;
+        } finally {
+            enma.close();
+        }
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        EntityManager enma = JpaConfig.getEntityManager();
+        try {
+            jakarta.persistence.TypedQuery<User> query = enma.createQuery(
+                "SELECT u FROM User u WHERE u.email = :email", User.class);
+            query.setParameter("email", email);
+            java.util.List<User> list = query.getResultList();
+            if (!list.isEmpty()) {
+                return list.get(0);
+            }
+            return null;
+        } finally {
+            enma.close();
+        }
+    }
+
+    @Override
+    public boolean checkExistUsername(String username) {
+        return findByUsername(username) != null;
+    }
+
+    @Override
+    public boolean checkExistEmail(String email) {
+        return findByEmail(email) != null;
+    }
 }

@@ -35,6 +35,12 @@ public class User implements Serializable {
     @Column(name = "email", length = 150)
     private String email;
 
+    @Column(name = "status")
+    private int status; // 0 = Chưa kích hoạt, 1 = Đã kích hoạt
+
+    @Column(name = "code", length = 50)
+    private String code; // Lưu mã xác thực OTP
+
     public User() {}
 
     public int getId() { return id; }
@@ -67,4 +73,10 @@ public class User implements Serializable {
     
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email;}
+
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
+
+    public String getCode() { return code; }
+    public void setCode(String code) { this.code = code; }
 }
