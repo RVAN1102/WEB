@@ -1,0 +1,11 @@
+﻿# Chặn các file cấu hình IDE của Java/Eclipse
+.settings/
+.classpath
+.project
+.factorypath
+
+# Chặn thư mục build sản phẩm
+target/
+
+# Chặn thư mục kỹ năng ẩn của Agent
+.agents/
