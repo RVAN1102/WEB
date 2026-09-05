@@ -15,4 +15,11 @@ target/
 # Local Cache & Third-party Workspace Context
 # ==========================================
 .agents/
-.md/
+.gemini/
+skills/
+
+# ==========================================
+# Design & Documentation Files
+# ==========================================
+DESIGN.md
+*.md
