@@ -42,6 +42,7 @@
         <c:when test="${sessionScope.account == null}">
             <ul>
                 <li><a href="<c:url value='/'/>">Trang chủ</a></li>
+                <li><a href="<c:url value='/product'/>">Sản phẩm</a></li>
                 <li><a href="${pageContext.request.contextPath}/login">Đăng nhập</a></li>
                 <li><a href="${pageContext.request.contextPath}/register">Đăng ký</a></li>
             </ul>
@@ -52,6 +53,7 @@
             <ul>
                 <li>Xin chào, <b>${sessionScope.account.fullName}</b></li>
                 <li><a href="<c:url value='/waiting'/>">Trang chủ</a></li>
+                <li><a href="<c:url value='/product'/>">Sản phẩm</a></li>
                 <li><a href="<c:url value='/myprofile'/>">Hồ sơ cá nhân</a></li>
                 <li><a href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
             </ul>
